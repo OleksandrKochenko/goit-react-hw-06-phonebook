@@ -1,36 +1,18 @@
-import { useState } from 'react';
-import PropTypes from 'prop-types';
-import shortid from 'shortid';
+import { useDispatch } from 'react-redux';
+import { addContact } from 'redux/contactsSlice';
 
-export default function ContactForm({ onSubmit }) {
-  const [name, setName] = useState('');
-  const [tel, setTel] = useState('');
-  const nameId = shortid.generate();
-  const telId = shortid.generate();
-
-  const handleChange = e => {
-    const { name, value } = e.currentTarget;
-    switch (name) {
-      case 'name':
-        setName(value);
-        break;
-      case 'tel':
-        setTel(value);
-        break;
-      default:
-        return;
-    }
-  };
-
-  const reset = () => {
-    setName('');
-    setTel('');
-  };
+export default function ContactForm() {
+  const dispatch = useDispatch();
 
   const handleSubmit = e => {
     e.preventDefault();
-    onSubmit({ name, tel });
-    reset();
+    const form = e.target;
+    const data = {
+      name: form.elements.name.value,
+      tel: form.elements.tel.value,
+    };
+    dispatch(addContact(data));
+    form.reset();
   };
 
   return (
@@ -38,32 +20,30 @@ export default function ContactForm({ onSubmit }) {
       style={{ border: '1px solid black', padding: '20px', width: '400px' }}
       onSubmit={handleSubmit}
     >
-      <label htmlFor={nameId}>Name</label>
+      <label>
+        Name
+        <br />
+        <input
+          type="text"
+          name="name"
+          pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
+          title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
+          required
+        />
+      </label>
       <br />
-      <input
-        type="text"
-        value={name}
-        name="name"
-        id={nameId}
-        pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
-        title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
-        required
-        onChange={handleChange}
-      />
       <br />
-      <br />
-      <label htmlFor={telId}>Phone</label>
-      <br />
-      <input
-        type="tel"
-        value={tel}
-        name="tel"
-        id={telId}
-        pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
-        title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
-        required
-        onChange={handleChange}
-      />
+      <label>
+        Phone
+        <br />
+        <input
+          type="tel"
+          name="tel"
+          pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
+          title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
+          required
+        />
+      </label>
       <br />
       <br />
       <button
@@ -80,7 +60,3 @@ export default function ContactForm({ onSubmit }) {
     </form>
   );
 }
-
-ContactForm.propTypes = {
-  onSubmit: PropTypes.func.isRequired,
-};

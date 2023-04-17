@@ -1,31 +1,31 @@
+import { MdOutlineDeleteForever } from 'react-icons/md';
+import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
+import { deleteContact } from 'redux/contactsSlice';
 
-export default function ContactItem({ name, tel, id, handleClick }) {
+export default function ContactItem({ contact }) {
+  const dispatch = useDispatch();
+  const handleDelete = () => dispatch(deleteContact(contact.id));
+
   return (
-    <li>
-      {name}: {tel}
+    <>
+      {contact.name}: {contact.tel}
       <button
         style={{
-          display: 'inline-block',
-          margin: '0 5px',
-          padding: '3px',
-          borderRadius: '5px',
-          fontWeight: '700',
+          background: 'none',
+          border: 'none',
           cursor: 'pointer',
         }}
         type="button"
-        name={id}
-        onClick={handleClick}
+        name={contact.id}
+        onClick={handleDelete}
       >
-        Delete
+        <MdOutlineDeleteForever size={24} />
       </button>
-    </li>
+    </>
   );
 }
 
 ContactItem.propTypes = {
-  name: PropTypes.string.isRequired,
-  tel: PropTypes.string.isRequired,
-  id: PropTypes.string.isRequired,
-  handleClick: PropTypes.func.isRequired,
+  contact: PropTypes.object,
 };
