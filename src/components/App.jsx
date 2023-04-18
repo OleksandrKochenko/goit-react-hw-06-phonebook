@@ -7,7 +7,7 @@ export default function App() {
   return (
     <Layout>
       <ContactForm />
-      <h3>Contacts:</h3>
+      <h3>Contacts :</h3>
       <Filter />
       <ContactList />
     </Layout>
