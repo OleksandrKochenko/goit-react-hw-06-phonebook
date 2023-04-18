@@ -1,4 +1,5 @@
 import { createSlice, nanoid } from '@reduxjs/toolkit';
+
 const contactsInitialState = {
   data: [],
 };
@@ -9,16 +10,7 @@ const contactsSlice = createSlice({
   reducers: {
     addContact: {
       reducer(state, action) {
-        if (
-          state.data.some(
-            contact =>
-              contact.name.toLowerCase() === action.payload.name.toLowerCase()
-          )
-        ) {
-          alert(`${action.payload.name} is already in contacts!`);
-        } else {
-          state.data.push(action.payload);
-        }
+        state.data.push(action.payload);
       },
       prepare(data) {
         return {
@@ -30,6 +22,7 @@ const contactsSlice = createSlice({
         };
       },
     },
+
     deleteContact(state, action) {
       const index = state.data.findIndex(
         contact => contact.id === action.payload
