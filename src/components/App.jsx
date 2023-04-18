@@ -1,6 +1,6 @@
-import ContactForm from './FormComponent';
+import ContactForm from './Form';
 import ContactList from './ContactList';
-import Filter from './FilterComponent';
+import Filter from './Filter';
 import { Layout } from './Layout';
 
 export default function App() {
