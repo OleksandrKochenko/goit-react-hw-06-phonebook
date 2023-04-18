@@ -1,4 +1,4 @@
-import ContactForm from './Form';
+import ContactForm from './form';
 import ContactList from './ContactList';
 import Filter from './Filter';
 import { Layout } from './Layout';
