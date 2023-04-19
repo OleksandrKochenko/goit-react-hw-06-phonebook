@@ -17,7 +17,6 @@ export default function ContactItem({ contact }) {
           cursor: 'pointer',
         }}
         type="button"
-        name={contact.id}
         onClick={handleDelete}
       >
         <MdOutlineDeleteForever size={24} />

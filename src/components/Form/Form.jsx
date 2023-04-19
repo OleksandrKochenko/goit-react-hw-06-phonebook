@@ -1,4 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
+import { nanoid } from '@reduxjs/toolkit';
 import { addContact } from 'redux/contactsSlice';
 import { getContacts } from 'redux/selectors';
 import { NameInput, TelInput, SubmitButton } from './FormElements';
@@ -11,6 +12,7 @@ export default function ContactForm() {
     e.preventDefault();
     const form = e.target;
     const data = {
+      id: nanoid(),
       name: form.elements.name.value,
       tel: form.elements.tel.value,
     };

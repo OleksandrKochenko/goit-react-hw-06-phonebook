@@ -1,6 +1,6 @@
-import ContactForm from './Form';
-import ContactList from './ContactList';
-import Filter from './Filter';
+import ContactForm from './Form/Form';
+import ContactList from './Contacts/ContactList';
+import Filter from './Filter/Filter';
 import { Layout } from './Layout';
 
 export default function App() {
